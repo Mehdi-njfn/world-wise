@@ -3,7 +3,6 @@ import styles from "./City.module.css";
 import { useCities } from "../../context/CitiesCtx";
 import Spinner from "./Spinner";
 import { useEffect } from "react";
-import Button from "../../components/Button";
 import BackButton from "../../components/BackButton";
 
 const formatDate = (date) =>
@@ -22,7 +21,7 @@ function City() {
     function () {
       getCity(id);
     },
-    [id]
+    [getCity, id]
   );
 
   const { cityName, emoji, date, notes } = currentCity;
