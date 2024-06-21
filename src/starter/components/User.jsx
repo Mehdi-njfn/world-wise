@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
+import { useCities } from "../../context/CitiesCtx";
 import styles from "./User.module.css";
+import { useEffect } from "react";
 
 const FAKE_USER = {
   name: "Jack",
@@ -8,14 +11,24 @@ const FAKE_USER = {
 };
 
 function User() {
-  const user = FAKE_USER;
+  const { u, setU } = useCities();
+  const user = u ? FAKE_USER : null;
+  const navigate = useNavigate();
 
-  function handleClick() {}
+  function handleClick() {
+    setU(false);
+  }
+  useEffect(
+    function () {
+      if (!u) navigate("/", { replace: true });
+    },
+    [navigate, u]
+  );
 
   return (
     <div className={styles.user}>
-      <img src={user.avatar} alt={user.name} />
-      <span>Welcome, {user.name}</span>
+      <img src={user?.avatar} alt={user?.name} />
+      <span>Welcome, {user?.name}</span>
       <button onClick={handleClick}>Logout</button>
     </div>
   );
